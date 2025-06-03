@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:event_booking/constant/colors.dart';
 import 'package:event_booking/routes/routes_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,20 +35,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A9E8E), // Primary theme color
+      backgroundColor: AllColors.teal1A9E8E, // Primary theme color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App Logo or Icon
-            Icon(Icons.event_available, size: 100, color: Colors.white),
+            Icon(Icons.event_available, size: 100, color: AllColors.white),
             const SizedBox(height: 30),
 
             // App Title
-            const Text(
+            Text(
               'EventVerse',
               style: TextStyle(
-                color: Colors.white,
+                color: AllColors.white,
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.5,
@@ -57,23 +58,15 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 10),
 
             // Tagline
-            const Text(
+            Text(
               'Your Gateway to Effortless Event Booking',
               style: TextStyle(
-                color: Colors.white70,
+                color: AllColors.white70,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
               textAlign: TextAlign.center,
             ),
-
-            const SizedBox(height: 60),
-
-            // Optional loading animation
-            // const CircularProgressIndicator(
-            //   color: Colors.white,
-            //   strokeWidth: 2,
-            // ),
           ],
         ),
       ),

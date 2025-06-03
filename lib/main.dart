@@ -1,6 +1,5 @@
 import 'package:event_booking/provider/auth_provider/auth-provider.dart';
 import 'package:event_booking/routes/routes.dart';
-import 'package:event_booking/screen/auth/login/login-screen.dart';
 import 'package:event_booking/screen/splash_screen/splash-screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

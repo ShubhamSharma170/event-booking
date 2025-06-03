@@ -76,50 +76,52 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Login Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (emailController.text.isEmpty ||
-                        passwordController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Please enter email and password"),
+              authProvider.loding
+                  ? const CircularProgressIndicator()
+                  : SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (emailController.text.isEmpty ||
+                            passwordController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please enter email and password"),
+                            ),
+                          );
+                          return;
+                        }
+
+                        bool isLogin = await authProvider.logIn(
+                          emailController.text,
+                          passwordController.text,
+                          context,
+                        );
+
+                        if (isLogin) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Login Successfully")),
+                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            RoutesName.home,
+                            (route) => false,
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AllColors.teal600,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      );
-                      return;
-                    }
-
-                    bool isLogin = await authProvider.logIn(
-                      emailController.text,
-                      passwordController.text,
-                      context,
-                    );
-
-                    if (isLogin) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Login Successfully")),
-                      );
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RoutesName.signUp,
-                        (route) => false,
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AllColors.teal600,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        "Login",
+                        style: TextStyle(fontSize: 16, color: AllColors.white),
+                      ),
                     ),
                   ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(fontSize: 16, color: AllColors.white),
-                  ),
-                ),
-              ),
 
               const SizedBox(height: 16),
 

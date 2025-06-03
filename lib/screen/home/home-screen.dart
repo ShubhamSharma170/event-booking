@@ -10,6 +10,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> dummyEvents = [
+      {
+        'title': 'Flutter Workshop',
+        'date': 'June 10, 2025',
+        'location': 'Online',
+      },
+      {'title': 'Startup Meetup', 'date': 'June 15, 2025', 'location': 'Delhi'},
+      {'title': 'Music Fest', 'date': 'June 20, 2025', 'location': 'Mumbai'},
+    ];
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +37,32 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: Text('Home Screen')),
+      body: ListView.builder(
+        itemCount: dummyEvents.length,
+        itemBuilder: (context, index) {
+          final event = dummyEvents[index];
+          return Card(
+            margin: const EdgeInsets.all(12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ListTile(
+              leading: const Icon(Icons.event),
+              title: Text(event['title'] ?? ''),
+              subtitle: Text('${event['date']} • ${event['location']}'),
+              trailing: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1A9E8E),
+                ),
+                onPressed: () {
+                  // book now logic later
+                },
+                child: const Text('Book Now'),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
