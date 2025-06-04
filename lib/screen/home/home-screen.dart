@@ -2,6 +2,7 @@
 
 import 'package:event_booking/provider/auth_provider/auth-provider.dart';
 import 'package:event_booking/routes/routes_name.dart';
+import 'package:event_booking/services/api-services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,6 +57,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   // book now logic later
+                  APIClass().getPostData();
                 },
                 child: const Text('Book Now'),
               ),
