@@ -1,3 +1,4 @@
+import 'package:event_booking/provider/api_provider/api-provider.dart';
 import 'package:event_booking/provider/auth_provider/auth-provider.dart';
 import 'package:event_booking/routes/routes.dart';
 import 'package:event_booking/screen/splash_screen/splash-screen.dart';
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => APICall()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

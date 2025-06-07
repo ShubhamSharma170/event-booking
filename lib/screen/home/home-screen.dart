@@ -1,5 +1,8 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
+import 'dart:developer';
+
+import 'package:event_booking/provider/api_provider/api-provider.dart';
 import 'package:event_booking/provider/auth_provider/auth-provider.dart';
 import 'package:event_booking/routes/routes_name.dart';
 import 'package:event_booking/services/api-services.dart';
@@ -11,15 +14,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> dummyEvents = [
-      {
-        'title': 'Flutter Workshop',
-        'date': 'June 10, 2025',
-        'location': 'Online',
-      },
-      {'title': 'Startup Meetup', 'date': 'June 15, 2025', 'location': 'Delhi'},
-      {'title': 'Music Fest', 'date': 'June 20, 2025', 'location': 'Mumbai'},
-    ];
+    log("Home Screen");
+    final apiData = Provider.of<APICall>(context);
+    final eventData = apiData.getEventData();
+    // final List<Map<String, String>> dummyEvents = [
+    // {
+    //   'title': 'Flutter Workshop',
+    //   'date': 'June 10, 2025',
+    //   'location': 'Online',
+    // },
+    // {'title': 'Startup Meetup', 'date': 'June 15, 2025', 'location': 'Delhi'},
+    // {'title': 'Music Fest', 'date': 'June 20, 2025', 'location': 'Mumbai'},
+    // ];
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -38,33 +44,41 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: dummyEvents.length,
-        itemBuilder: (context, index) {
-          final event = dummyEvents[index];
-          return Card(
-            margin: const EdgeInsets.all(12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              leading: const Icon(Icons.event),
-              title: Text(event['title'] ?? ''),
-              subtitle: Text('${event['date']} • ${event['location']}'),
-              trailing: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A9E8E),
+      body:
+          eventData.isEmpty
+              ? Center(
+                child: ElevatedButton(
+                  onPressed: () => apiData.getEventApiData(),
+                  child: Text("Load Events"),
                 ),
-                onPressed: () {
-                  // book now logic later
-                  APIClass().getPostData();
+              )
+              : ListView.builder(
+                itemCount: eventData.length,
+                itemBuilder: (context, index) {
+                  final event = eventData[index];
+                  return Card(
+                    margin: const EdgeInsets.all(12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      leading: const Icon(Icons.event),
+                      title: Text("${event.title}"),
+                      subtitle: Text("${event.body}"),
+                      trailing: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1A9E8E),
+                        ),
+                        onPressed: () {
+                          // book now logic later
+                          APIClass().getPostData();
+                        },
+                        child: const Text('Book Now'),
+                      ),
+                    ),
+                  );
                 },
-                child: const Text('Book Now'),
               ),
-            ),
-          );
-        },
-      ),
     );
   }
 }

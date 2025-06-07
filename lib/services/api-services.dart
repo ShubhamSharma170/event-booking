@@ -1,6 +1,9 @@
+// ignore_for_file: file_names
+
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:event_booking/model/event-model.dart';
 
 class APIClass {
   final _dio = Dio(
@@ -13,12 +16,14 @@ class APIClass {
     ),
   );
 
-  Future<List<dynamic>> getPostData() async {
+  Future<List<EventModel>> getPostData() async {
     try {
       final response = await _dio.get("/posts");
       if (response.statusCode == 200) {
-        log("${response.data}");
-        return response.data;
+        List data = response.data;
+        final event = data.map((e) => EventModel.fromJson(e)).toList();
+        log("data length ${data.length}");
+        return event;
       } else {
         throw Exception("Failed to load data");
       }
