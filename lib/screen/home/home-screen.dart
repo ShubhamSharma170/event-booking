@@ -2,10 +2,10 @@
 
 import 'dart:developer';
 
+import 'package:event_booking/constant/colors.dart';
 import 'package:event_booking/provider/api_provider/api-provider.dart';
 import 'package:event_booking/provider/auth_provider/auth-provider.dart';
 import 'package:event_booking/routes/routes_name.dart';
-import 'package:event_booking/services/api-services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -71,9 +71,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           // book now logic later
-                          APIClass().getPostData();
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.eventDetail,
+                            arguments: event,
+                          );
                         },
-                        child: const Text('Book Now'),
+                        child: Text(
+                          'Book Now',
+                          style: TextStyle(color: AllColors.black),
+                        ),
                       ),
                     ),
                   );

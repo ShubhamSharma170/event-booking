@@ -1,5 +1,6 @@
 import 'package:event_booking/screen/auth/login/login-screen.dart';
 import 'package:event_booking/screen/auth/signup/signup-screen.dart';
+import 'package:event_booking/screen/event_detail_page/event-detail-page.dart';
 import 'package:event_booking/screen/home/home-screen.dart';
 import 'package:event_booking/screen/splash_screen/splash-screen.dart';
 
@@ -24,6 +25,12 @@ class Routes {
       case RoutesName.home:
         return MaterialPageRoute(
           builder: (BuildContext context) => HomeScreen(),
+        );
+      case RoutesName.eventDetail:
+        final args = settings.arguments;
+        return MaterialPageRoute(
+          builder:
+              (BuildContext context) => EventDetailScreen(eventDetails: args),
         );
       default:
         return MaterialPageRoute(
